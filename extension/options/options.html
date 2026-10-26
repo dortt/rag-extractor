@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Configurações · RAG Extractor</title>
+<link rel="stylesheet" href="../shared/theme.css"/>
+<link rel="stylesheet" href="options.css"/>
+</head>
+<body class="rag">
+<div class="opt">
+  <aside class="opt__side">
+    <div class="opt__brand">
+      <div class="brand__logo"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7 L 12 12 L 21 7"/><path d="M3 12 L 12 17 L 21 12"/><path d="M3 17 L 12 22 L 21 17"/></svg></div>
+      <div><div style="font-weight:600;font-size:13px">RAG Extractor</div><div style="font:10px var(--mono);color:var(--fg-3)">configurações</div></div>
+    </div>
+    <nav class="opt__nav">
+      <button data-tab="server" class="active">Servidor</button>
+      <button data-tab="model">Modelo</button>
+      <button data-tab="output">Saída</button>
+      <button data-tab="collections">Coleções</button>
+      <button data-tab="library">Biblioteca</button>
+    </nav>
+    <div class="opt__ver">v0.1.0 · MIT</div>
+  </aside>
+
+  <main class="opt__main">
+    <section data-pane="server">
+      <h2>Servidor LLM</h2>
+      <p class="lede">Endpoint compatível com OpenAI/Ollama/llama.cpp.</p>
+      <label>URL do servidor<input id="llmUrl" class="mono"/></label>
+      <label>Bearer token <span class="opt__badge">opcional</span><input id="llmToken" class="mono" type="password" placeholder="sk-..."/></label>
+      <div class="row">
+        <button id="btn-test" class="primary">Testar conexão</button>
+        <span id="test-result" class="mono"></span>
+      </div>
+
+      <h3>Backend de armazenamento</h3>
+      <div class="radios">
+        <label class="radio"><input type="radio" name="storage" value="local"/><div><b>Apenas local</b><small>arquivos no chrome.storage</small></div></label>
+        <label class="radio"><input type="radio" name="storage" value="both"/><div><b>Local + servidor</b><small>POST após gerar</small></div></label>
+        <label class="radio"><input type="radio" name="storage" value="remote"/><div><b>Apenas servidor</b><small>POST direto</small></div></label>
+      </div>
+      <label>POST de upload<input id="backendUrl" class="mono" placeholder="http://localhost:8000/rag/ingest"/></label>
+      <label>Bearer token (backend) <span class="opt__badge">opcional</span><input id="backendToken" class="mono" type="password"/></label>
+    </section>
+
+    <section data-pane="model" hidden>
+      <h2>Modelo</h2>
+      <p class="lede">Modelo, prompt e parâmetros.</p>
+      <label>Modelo<input id="model" class="mono"/></label>
+      <div class="grid3">
+        <label>Temperature<input id="temperature" class="mono" type="number" step="0.05" min="0" max="2"/></label>
+        <label>Max tokens<input id="maxTokens" class="mono" type="number" min="0"/></label>
+        <label>Top-p<input id="topP" class="mono" type="number" step="0.05" min="0" max="1"/></label>
+      </div>
+      <label>Máx. chars de input <span class="opt__badge">0 = ilimitado · divide em chunks se maior</span><input id="maxInputChars" class="mono" type="number" min="0" step="1000"/></label>
+      <label>Timeout por chunk (segundos)<input id="llmTimeout" class="mono" type="number" min="30" step="30"/></label>
+      <h3>Prompt template</h3>
+      <p class="lede">Variáveis: <code>{{content}}</code> <code>{{url}}</code> <code>{{title}}</code> <code>{{type}}</code> <code>{{locale}}</code> <code>{{date}}</code></p>
+      <textarea id="promptTemplate" rows="14"></textarea>
+    </section>
+
+    <section data-pane="output" hidden>
+      <h2>Saída · Markdown</h2>
+      <p class="lede">Frontmatter padrão e formato de nome de arquivo.</p>
+      <div class="grid2">
+        <label>Locale padrão
+          <select id="locale">
+            <option>pt_BR</option><option>en_US</option><option>es_ES</option><option>ja_JP</option>
+          </select>
+        </label>
+        <label>Tags padrão<input id="defaultTags" class="mono" placeholder="tag1, tag2"/></label>
+        <label>Padrão de nome de arquivo<input id="filenamePattern" class="mono"/></label>
+      </div>
+      <h3>Tipos de documento</h3>
+      <p class="lede">Tipos disponíveis nos seletores. O tipo marcado como <b>padrão</b> é pré-selecionado em novas capturas.</p>
+      <div id="type-list"></div>
+      <button id="btn-add-type" class="ghost">+ Novo tipo</button>
+
+      <h3>Campos de frontmatter</h3>
+      <p class="lede">Campos extras gerados no cabeçalho YAML de cada documento. <code>key</code> vira a chave YAML; <code>label</code> aparece no formulário; <code>valor padrão</code> é opcional. Um campo <code>source_url</code> é preenchido automaticamente com a URL capturada.</p>
+      <div id="fm-list"></div>
+      <button id="btn-add-fm" class="ghost">+ Novo campo</button>
+    </section>
+
+    <section data-pane="collections" hidden>
+      <h2>Coleções</h2>
+      <p class="lede">Pastas lógicas para agrupar documentos.</p>
+      <div id="col-list"></div>
+      <button id="btn-add-col" class="ghost">+ Nova coleção</button>
+    </section>
+
+    <section data-pane="library" hidden>
+      <h2>Biblioteca</h2>
+      <p class="lede">Documentos salvos localmente.</p>
+      <div id="lib-list"></div>
+    </section>
+
+    <div class="opt__save">
+      <span id="save-status" class="mono dim"></span>
+      <button id="btn-save" class="primary">Salvar configurações</button>
+    </div>
+  </main>
+</div>
+<script src="options.js" type="module"></script>
+</body>
+</html>

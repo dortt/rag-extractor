@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Side Panel · RAG Extractor</title>
+<link rel="stylesheet" href="../shared/theme.css"/>
+<link rel="stylesheet" href="sidepanel.css"/>
+</head>
+<body class="rag">
+<div class="sp">
+  <header class="sp__head">
+    <div class="brand">
+      <div class="brand__logo"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7 L 12 12 L 21 7"/><path d="M3 12 L 12 17 L 21 12"/><path d="M3 17 L 12 22 L 21 17"/></svg></div>
+      <div>
+        <div class="brand__name">RAG Extractor</div>
+        <div class="brand__sub">side panel</div>
+      </div>
+    </div>
+    <button class="icon-btn" id="btn-options" title="Configurações">⚙</button>
+  </header>
+
+  <div id="view-idle" class="sp__view">
+    <button id="btn-activate" class="cta"><span>⊕</span> Selecionar elemento <span class="cta__kbd mono">⌥⇧S</span></button>
+    <div class="hint mono">Passe o mouse sobre a página, clique no bloco que quer capturar.</div>
+    <div class="recent-block">
+      <div class="block-label">Recentes</div>
+      <div id="recent-list"></div>
+    </div>
+  </div>
+
+  <div id="view-edit" class="sp__view hidden">
+    <div class="banner ok-banner">
+      <span>✓</span> <span id="edit-meta">capturado</span>
+    </div>
+    <label>title<input id="f-title"/></label>
+    <label>type
+      <select id="f-type"></select>
+    </label>
+    <label>tags<input id="f-tags" placeholder="ninja, melee, awakening"/></label>
+    <div id="f-fm-fields"></div>
+    <label>coleção<select id="f-collection"></select></label>
+    <label>conteúdo (markdown)<textarea id="f-content" rows="14"></textarea></label>
+    <button id="btn-save" class="cta"><span>✓</span> Salvar no RAG</button>
+    <button id="btn-print" class="ghost">🖨 PDF</button>
+    <button id="btn-cancel" class="ghost">← Selecionar outro</button>
+  </div>
+
+  <footer class="sp__foot">
+    <span id="status-dot" class="dot"></span>
+    <span id="status-text" class="mono">…</span>
+    <span style="flex:1"></span>
+    <span id="doc-count" class="mono dim"></span>
+  </footer>
+
+  <div id="job-bar" class="job-bar hidden">
+    <span id="job-spinner" class="job-spinner"></span>
+    <span id="job-text" class="mono" style="flex:1"></span>
+    <button id="job-dismiss" style="background:transparent;border:none;color:#7a8390;cursor:pointer;font-size:14px;padding:0 4px;line-height:1" title="Fechar">×</button>
+  </div>
+</div>
+<script src="sidepanel.js" type="module"></script>
+</body>
+</html>

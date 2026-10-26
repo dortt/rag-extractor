@@ -1,0 +1,11 @@
+# Runtime RAG stores
+backends/php/rag-store/
+backends/python/rag-store/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

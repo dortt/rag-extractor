@@ -1,0 +1,10 @@
+/* content.css — escopo nulo (CSS direto na page) só para impedir interação durante seleção */
+html.rag-selecting, html.rag-selecting * {
+  cursor: crosshair !important;
+  user-select: none !important;
+}
+html.rag-selecting a { pointer-events: none !important; }
+#__rag-menu button:hover {
+  background: rgba(255,255,255,0.1) !important;
+  cursor: pointer !important;
+}

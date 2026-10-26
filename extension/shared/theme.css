@@ -1,0 +1,37 @@
+/* shared/theme.css — tokens compartilhados entre popup, side panel, options, preview */
+:root {
+  --bg-0: oklch(0.16 0.012 250);
+  --bg-1: oklch(0.19 0.012 250);
+  --bg-2: oklch(0.22 0.013 250);
+  --bg-3: oklch(0.26 0.014 250);
+  --line: oklch(0.30 0.012 250);
+  --line-soft: oklch(0.26 0.010 250);
+  --fg-0: oklch(0.96 0.005 250);
+  --fg-1: oklch(0.82 0.008 250);
+  --fg-2: oklch(0.62 0.010 250);
+  --fg-3: oklch(0.46 0.010 250);
+  --accent: oklch(0.80 0.14 165);
+  --accent-dim: oklch(0.55 0.10 165);
+  --accent-bg: oklch(0.30 0.06 165 / 0.20);
+  --warn: oklch(0.78 0.14 60);
+  --error: oklch(0.70 0.18 25);
+  --ok: oklch(0.78 0.16 145);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body.rag { margin: 0; font-family: var(--sans); color: var(--fg-0); background: var(--bg-0); }
+.mono { font-family: var(--mono); }
+.dim { color: var(--fg-3); }
+.ok { color: var(--ok); }
+.err { color: var(--error); }
+button { font-family: var(--sans); cursor: pointer; }
+input, select, textarea { font-family: var(--sans); color: var(--fg-0); background: var(--bg-1); border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; outline: none; }
+input:focus, select:focus, textarea:focus { border-color: var(--accent-dim); }
+.icon-btn { background: transparent; border: none; color: var(--fg-2); padding: 4px 6px; border-radius: 3px; font-size: 14px; }
+.icon-btn:hover { background: var(--bg-2); }
+.link { background: transparent; border: none; color: var(--accent); font: 10.5px var(--mono); padding: 0; cursor: pointer; }
+.dot { width: 6px; height: 6px; border-radius: 3px; background: var(--ok); display: inline-block; box-shadow: 0 0 6px var(--ok); }
+.dot.off { background: var(--error); box-shadow: none; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }

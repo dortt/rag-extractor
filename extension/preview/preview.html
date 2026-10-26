@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Preview · RAG Extractor</title>
+<link rel="stylesheet" href="../shared/theme.css"/>
+<style>
+.pv { display: flex; flex-direction: column; height: 100vh; }
+.pv__head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line-soft); }
+.pv__head h1 { font-size: 13px; margin: 0; font-weight: 600; }
+.pv__meta { display: grid; grid-template-columns: 2fr 1fr 1fr 2fr 1fr; gap: 12px; padding: 12px 16px; background: var(--bg-1); border-bottom: 1px solid var(--line-soft); }
+.pv__meta label { display: flex; flex-direction: column; gap: 4px; font: 9.5px var(--mono); text-transform: uppercase; letter-spacing: 1px; color: var(--fg-3); font-weight: 600; min-width: 0; }
+.pv__meta input, .pv__meta select { font: 11px var(--mono); }
+.pv__body { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line-soft); overflow: hidden; }
+.pv__pane { background: var(--bg-0); overflow: auto; padding: 16px 20px; }
+.pv__pane h3 { font: 9.5px var(--mono); letter-spacing: 1px; text-transform: uppercase; color: var(--fg-3); margin: 0 0 10px; font-weight: 600; }
+.pv__pane textarea { width: 100%; height: calc(100vh - 280px); background: var(--bg-1); border: 1px solid var(--line); border-radius: 4px; padding: 12px; font: 11.5px var(--mono); color: var(--fg-0); line-height: 1.6; resize: none; outline: none; }
+.pv__pane .render { font: 13px var(--sans); color: var(--fg-1); line-height: 1.65; }
+.pv__pane .render h2 { color: var(--fg-0); font-size: 18px; margin: 18px 0 8px; }
+.pv__pane .render h3 { color: var(--fg-0); font-size: 14px; margin: 14px 0 6px; font-family: var(--sans); text-transform: none; letter-spacing: 0; }
+.pv__pane .render code { font: 11px var(--mono); background: var(--bg-2); padding: 1px 5px; border-radius: 3px; }
+.pv__pane .render pre { background: var(--bg-1); border: 1px solid var(--line); border-radius: 4px; padding: 12px; overflow: auto; }
+.pv__foot { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--line-soft); background: var(--bg-1); }
+.pv__foot .dest { flex: 1; font: 11px var(--mono); color: var(--fg-2); }
+.pv__foot .dest code { color: var(--accent); }
+.pv__btn { background: transparent; color: var(--fg-1); border: 1px solid var(--line); border-radius: 4px; padding: 7px 12px; font-size: 11.5px; }
+.pv__btn--primary { background: var(--accent); color: var(--bg-0); border: none; font-weight: 600; }
+</style>
+</head>
+<body class="rag">
+<div class="pv">
+  <header class="pv__head">
+    <span>📄</span>
+    <h1>Pré-visualização</h1>
+    <span id="pv-status" class="mono dim"></span>
+  </header>
+  <div class="pv__meta" style="grid-template-columns:2fr 1fr 2fr 1fr">
+    <label>title<input id="m-title"/></label>
+    <label>type
+      <select id="m-type"></select>
+    </label>
+    <label>tags<input id="m-tags" placeholder="tag1, tag2"/></label>
+    <label>coleção<select id="m-collection"></select></label>
+    <div id="m-fm-fields" style="grid-column:1/-1;display:contents"></div>
+  </div>
+  <div class="pv__body">
+    <div class="pv__pane">
+      <h3>Markdown</h3>
+      <textarea id="md"></textarea>
+    </div>
+    <div class="pv__pane">
+      <h3>Preview</h3>
+      <div id="render" class="render"></div>
+    </div>
+  </div>
+  <footer class="pv__foot">
+    <div class="dest">destino: <code id="dest-path">…</code></div>
+    <button id="btn-copy" class="pv__btn">Copiar</button>
+    <button id="btn-download" class="pv__btn">Baixar .md</button>
+    <button id="btn-print" class="pv__btn">🖨 PDF</button>
+    <button id="btn-save" class="pv__btn pv__btn--primary">Salvar no RAG</button>
+  </footer>
+</div>
+<script src="preview.js" type="module"></script>
+</body>
+</html>

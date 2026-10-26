@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>RAG Extractor</title>
+<link rel="stylesheet" href="../shared/theme.css" />
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body class="rag">
+<div class="popup">
+  <header class="popup__head">
+    <div class="brand">
+      <div class="brand__logo">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7 L 12 12 L 21 7"/><path d="M3 12 L 12 17 L 21 12"/><path d="M3 17 L 12 22 L 21 17"/></svg>
+      </div>
+      <div>
+        <div class="brand__name">RAG Extractor</div>
+        <div class="brand__ver">v0.1.0</div>
+      </div>
+    </div>
+    <button id="btn-options" class="icon-btn" title="Configurações">⚙</button>
+  </header>
+
+  <div class="status">
+    <span id="status-dot" class="dot"></span>
+    <span id="status-text" class="mono">verificando…</span>
+    <span style="flex:1"></span>
+    <span id="status-model" class="mono dim"></span>
+  </div>
+
+  <div id="job-banner" class="job-banner hidden">
+    <span id="job-spinner" class="job-spinner"></span>
+    <span id="job-text" class="mono"></span>
+  </div>
+
+  <div class="cta-wrap">
+    <button id="btn-select" class="cta">
+      <span class="cta__icon">⊕</span>
+      <span class="cta__label">Selecionar elemento</span>
+      <span class="cta__kbd mono">⌥⇧S</span>
+    </button>
+    <button id="btn-sidepanel" class="ghost">Abrir side panel</button>
+  </div>
+
+  <section class="section">
+    <div class="section__label">Captura</div>
+    <div class="kv"><span>Coleção</span><select id="sel-collection" class="mono"></select></div>
+    <div class="kv"><span>Tipo</span><select id="sel-type" class="mono"></select></div>
+    <div class="kv"><span>Locale</span><select id="sel-locale" class="mono">
+      <option>pt_BR</option><option>en_US</option><option>es_ES</option><option>ja_JP</option>
+    </select></div>
+  </section>
+
+  <section class="section">
+    <div class="section__label section__label--row">
+      <span>Recentes</span>
+      <button id="btn-library" class="link">biblioteca →</button>
+    </div>
+    <div id="recent-list" class="recent"></div>
+  </section>
+
+  <footer class="foot">
+    <span id="foot-stats">…</span>
+    <span style="flex:1"></span>
+    <span class="dim">⌥⇧S captura · ⌥⇧L biblioteca</span>
+  </footer>
+</div>
+<script src="popup.js" type="module"></script>
+</body>
+</html>
